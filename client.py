@@ -6,6 +6,7 @@ import signal
 import sys
 import struct
 
+
 class Client(object):
 
     def __init__(self):
