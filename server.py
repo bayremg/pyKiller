@@ -66,7 +66,8 @@ def accept_connections():
             #all_addresses.append(address)
             all_connections.append(conn)
             all_addresses.append(address)
-            print(colored("\nConnection has beesn established: ", 'green') + address[0])
+            print(colored("\nConnection has beesn established: ", 'green') 
+                  + address[0])
         except:
             print("Erro accepting connections")
 
@@ -96,7 +97,8 @@ def list_connections():
             del all_connections[i]
             del all_addresses[i]
             continue
-        results += str(i) + '   ' + str(all_addresses[i][0]) + '   ' + str(all_addresses[i][1]) + '\n'
+        results += str(i) + '   ' + str(all_addresses[i][0]) + '   ' \
+                   + str(all_addresses[i][1]) + '\n'
     print(colored('+++++ Clients List +++++', 'blue') + '\n' + results)
 
 
@@ -106,7 +108,8 @@ def get_target(cmd):
         target = cmd.replace('select ', '')
         target = int(target)
         conn = all_connections[target]
-        print(colored("You are now connected to ", 'green') + str(all_addresses[target][0]))
+        print(colored("You are now connected to ", 'green') 
+              + str(all_addresses[target][0]))
         print(str(all_addresses[target][0]) + '> ', end="")
         return conn
     except:
