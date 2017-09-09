@@ -10,7 +10,7 @@ import struct
 class Client(object):
 
     def __init__(self):
-        self.serverHost = '192.168.1.2' # Change the ip address !
+        self.serverHost = '192.168.1.2'  # Change the ip address !
         self.serverPort = 9999
         self.socket = None
 
