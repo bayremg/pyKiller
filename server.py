@@ -63,7 +63,7 @@ def accept_connections():
             conn.setblocking(1)
             client_hostname = conn.recv(1024).decode("utf-8")
             address = address + (client_hostname,)
-            #all_addresses.append(address)
+            # all_addresses.append(address)
             all_connections.append(conn)
             all_addresses.append(address)
             print(colored("\nConnection has beesn established: ", 'green') 
