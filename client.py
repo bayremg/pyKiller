@@ -74,7 +74,8 @@ class Client(object):
         while True:
             output_str = None
             data = self.socket.recv(20480)
-            if data == b'': break
+            if data == b'': 
+                break
             elif data[:2].decode("utf-8") == 'cd':
                 directory = data[3:].decode("utf-8")
                 try:
