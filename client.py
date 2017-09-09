@@ -96,7 +96,8 @@ class Client(object):
                     output_bytes = cmd.stdout.read() + cmd.stderr.read()
                     output_str = output_bytes.decode("utf-8", errors="replace")
                 except Exception as e:
-                    output_str = "Command execution unsuccessful: %s\n" % str(e)
+                    output_str = "Command execution unsuccessful: %s\n" % \
+                                 str(e)
             if output_str is not None:
                 try:
                     self.print_output(output_str)
